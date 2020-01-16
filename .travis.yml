@@ -18,7 +18,7 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
   # Push images
-  - docker push alekcoraglez/flask-app
+  - docker push alekcoraglez/flask-app-docker
 
 deploy:
   app: flask-app
