@@ -9,6 +9,6 @@ metadata:
 spec:
   containers:
     - name: flask-app
-      image: alekcoraglez/flask-app
+      image: alekcoraglez/flask-app-docker
       ports:
         - containerPort: 5000
