@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "flask-app",
-      "image": "alekcoraglez/flask-app",
+      "image": "alekcoraglez/flask-app-docker",
       "memoryReservation": 512,
       "cpu": 1,
       "hostname": "flask-app",
@@ -14,21 +14,6 @@
           "containerPort": 5000
         }
       ]
-    },
-    {
-      "name": "nginx",
-      "image": "alekcoraglez/flask-app-nginx",
-      "memoryReservation": 256,
-      "cpu": 1,
-      "hostname": "nginx",
-      "essential": true,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 80
-        }
-      ],
-      "links": ["flask-app"]
     }
   ]
 }
