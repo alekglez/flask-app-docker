@@ -1,0 +1,34 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "flask-app",
+      "image": "alekcoraglez/flask-app",
+      "memoryReservation": 512,
+      "cpu": 1,
+      "hostname": "flask-app",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 5000,
+          "containerPort": 5000
+        }
+      ]
+    },
+    {
+      "name": "nginx",
+      "image": "alekcoraglez/flask-app-nginx",
+      "memoryReservation": 256,
+      "cpu": 1,
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["flask-app"]
+    }
+  ]
+}

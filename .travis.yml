@@ -1,0 +1,39 @@
+language: python
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - pwd
+  - docker build -t alekcoraglez/flask-app-blueprint-test ./flask-app-blueprint
+
+script:
+  - docker run alekcoraglez/flask-app-blueprint-test python manage.py test
+
+after_success:
+  - docker build -t alekcoraglez/flask-app ./flask-app-blueprint
+  - docker build -t alekcoraglez/flask-app-nginx ./flask-app-blueprint/nginx
+
+  # Login into Docker CLI...
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # Push images
+  - docker push alekcoraglez/flask-app
+  - docker push alekcoraglez/flask-app-nginx
+
+deploy:
+  app: multi-docker
+  env: MultiDocker-env
+  provider: elasticbeanstalk
+  region: us-east-1
+  edge: true
+
+  bucket: elasticbeanstalk-us-east-1-241862480583
+
+  on:
+    branch: develop
+
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

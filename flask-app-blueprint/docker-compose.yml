@@ -1,0 +1,22 @@
+version: "3.5"
+
+services:
+  flask-app:
+    image: alekcoraglez/flask-app:latest
+    container_name: flask-app
+    restart: always
+
+    command: flask run --host=0.0.0.0
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    volumes:
+      - .:/flask-app
+
+    environment:
+      - FLASK_APP=/flask-app/manage.py
+
+    ports:
+      - 5000:5000
